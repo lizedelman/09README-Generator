@@ -1,53 +1,55 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const questions = [];
+const generateMarkdown = require("./utils/generateMarkdown");
 
-inquirer
-  .prompt([
-    {
-      type: "input",
-      message: "What is your project name?",
-      name: "title",
-    },
-    {
-      type: "input",
-      message: "Write a short description of the project.",
-      name: "description",
-    },
-    {
-      type: "input",
-      message: "What license would you like to use/list?",
-      name: "license",
-    },
-    {
-      type: "input",
-      message: "What would you like to include under the usage section?",
-      name: "usage",
-    },
-    {
-      type: "input",
-      message: "What would you like to include under the installation section?",
-      name: "installation",
-    },
-    {
-      type: "input",
-      message: "Would you like to include any credits?",
-      name: "credits",
-    },
-  ])
-  .then((answers) => {
-    console.log(answers);
-
-    fs.writeFile("README.md", JSON.stringify(answers), (err) =>
-      err ? console.error(err) : console.log("README successfully created!")
-    );
-  });
+const questions = [
+  {
+    type: "input",
+    message: "What is your project name?",
+    name: "title",
+  },
+  {
+    type: "input",
+    message: "Write a short description of the project.",
+    name: "description",
+  },
+  {
+    type: "input",
+    message: "What license would you like to use/list?",
+    name: "license",
+  },
+  {
+    type: "input",
+    message: "What would you like to include under the usage section?",
+    name: "usage",
+  },
+  {
+    type: "input",
+    message: "What would you like to include under the installation section?",
+    name: "installation",
+  },
+  {
+    type: "input",
+    message: "Would you like to include any credits?",
+    name: "credits",
+  },
+];
 
 // TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+  console.log(data);
+  return fs.writeFileSync(fileName, data);
+}
 
-// TODO: Create a function to initialize app
-// function init() {}
+function init() {
+  inquirer
+    .prompt(questions)
+
+    .then((responses) =>
+      writeToFile("./readme.md", generateMarkdown(responses))
+    )
+    .catch((err) => console.log("An error ocurred", err));
+}
 
 // Function call to initialize app
-// init();
+init();
