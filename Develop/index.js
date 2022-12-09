@@ -15,11 +15,6 @@ const questions = [
   },
   {
     type: "input",
-    message: "What license would you like to use/list?",
-    name: "license",
-  },
-  {
-    type: "input",
     message: "What would you like to include under the usage section?",
     name: "usage",
   },
@@ -33,11 +28,15 @@ const questions = [
     message: "Would you like to include any credits?",
     name: "credits",
   },
+  {
+    type: "input",
+    message: "What license would you like to use/list?",
+    name: "license",
+  },
 ];
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-  console.log(data);
   return fs.writeFileSync(fileName, data);
 }
 
