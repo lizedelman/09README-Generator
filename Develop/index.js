@@ -45,7 +45,7 @@ function init() {
     .prompt(questions)
 
     .then((responses) =>
-      writeToFile("./readme.md", generateMarkdown(responses))
+      writeToFile("./README1.md", generateMarkdown(responses))
     )
     .catch((err) => console.log("An error ocurred", err));
 }
